@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import IlustrationImg from '../../assets/illustration.png';
@@ -5,30 +6,31 @@ import { ButtonIcon } from '../../components/ButtonIcon';
 import { style } from './styles';
 
 export function SignIn() {
-    return (
-        <View style={style.containter}>
-            <Image
-                source={IlustrationImg}
-                style={style.image}
-                resizeMode="stretch"
-            />
+  const navigation = useNavigation();
+  function handleSignIn() {
+    navigation.navigate('Home');
+  }
 
-            <View style={style.content}>
-                <Text style={style.title}>
-                    Conecte-se
-                    {'\n'}e organize suas
-                    {'\n'}
-                    jogatinas
-                </Text>
+  return (
+    <View style={style.containter}>
+      <Image source={IlustrationImg} style={style.image} resizeMode="stretch" />
 
-                <Text style={style.subTitle}>
-                    Crie grupos para jogar seus games
-                    {'\n'}
-                    favoritos com seus amigos
-                </Text>
+      <View style={style.content}>
+        <Text style={style.title}>
+          Conecte-se
+          {'\n'}e organize suas
+          {'\n'}
+          jogatinas
+        </Text>
 
-                <ButtonIcon title="Entrar com o Discord" activeOpacity={0.7} />
-            </View>
-        </View>
-    );
+        <Text style={style.subTitle}>
+          Crie grupos para jogar seus games
+          {'\n'}
+          favoritos com seus amigos
+        </Text>
+
+        <ButtonIcon onPress={handleSignIn} title="Entrar com o Discord" />
+      </View>
+    </View>
+  );
 }
