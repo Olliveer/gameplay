@@ -1,10 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { theme } from '../../global/styles/theme';
 
 export const styles = StyleSheet.create({
-  image: {
-    width: 104,
-    height: 64,
+  container: {
+    width: 62,
+    height: 66,
     borderRadius: 8,
-    marginRight: 20,
+    backgroundColor: theme.colors.secondary50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  image: {
+    width: 62,
+    height: 66,
   },
 });

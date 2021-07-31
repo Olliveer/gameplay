@@ -53,11 +53,15 @@ export function Home() {
     navigation.navigate('AppointmentDetail');
   }
 
+  function handleAppoitmentCreate() {
+    navigation.navigate('AppointmentCreate');
+  }
+
   return (
     <Background>
       <View style={styles.header}>
         <Profile />
-        <ButtonAdd />
+        <ButtonAdd onPress={handleAppoitmentCreate} />
       </View>
 
       <CategorySelect
