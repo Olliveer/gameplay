@@ -2,19 +2,32 @@ import { Feather } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import { Background } from '../../components/Background';
+import { GuildProps } from '../../components/Appointment';
 import { Button } from '../../components/Button';
 import { CategorySelect } from '../../components/CategorySelect';
 import { GuildIcon } from '../../components/GuildIcon';
 import { Header } from '../../components/Header';
+import { ModalView } from '../../components/ModalView';
 import { SmallInput } from '../../components/SmallInput';
 import { TextArea } from '../../components/TextArea';
 import { theme } from '../../global/styles/theme';
+import { Guilds } from '../Guilds';
 
 import { styles } from './styles';
 
 export function AppointmentCreate() {
   const [category, setCategory] = useState('');
+  const [openGuilds, setOpenGuilds] = useState(false);
+  const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
+
+  function handleOpenGuilds() {
+    setOpenGuilds(true);
+  }
+  function handleGuildSelected(guildSelect: GuildProps) {
+    setGuild(guildSelect);
+    setOpenGuilds(false);
+  }
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -43,15 +56,14 @@ export function AppointmentCreate() {
         />
 
         <View style={styles.form}>
-          <RectButton>
+          <RectButton onPress={handleOpenGuilds}>
             <View style={styles.select}>
-              {
-                // <View style={styles.image} />
-                <GuildIcon />
-              }
+              {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
 
               <View style={styles.selectBody}>
-                <Text style={styles.label}>Selecione um servidor</Text>
+                <Text style={styles.label}>
+                  {guild.name ? guild.name : `Selecione um servidor`}
+                </Text>
               </View>
               <Feather
                 name="chevron-right"
@@ -106,6 +118,9 @@ export function AppointmentCreate() {
           </View>
         </View>
       </ScrollView>
+      <ModalView visible={openGuilds}>
+        <Guilds handleGuildSelected={handleGuildSelected} />
+      </ModalView>
     </KeyboardAvoidingView>
   );
 }
