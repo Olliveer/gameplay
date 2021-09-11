@@ -1,7 +1,17 @@
 import { Fontisto } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Alert, ImageBackground, Text, View } from 'react-native';
+
+import {
+  Alert,
+  ImageBackground,
+  Text,
+  View,
+  Share,
+  Platform,
+} from 'react-native';
+import * as Linking from 'expo-linking';
+
 import { BorderlessButton, FlatList } from 'react-native-gesture-handler';
 import Banner from '../../assets/banner.png';
 import { AppointmentProps } from '../../components/Appointment';
@@ -52,14 +62,37 @@ export function AppointmentDetails() {
     fetchGuildWidget();
   }, []);
 
+  function handleShareInvitation() {
+    const message =
+      Platform.OS === 'ios'
+        ? `Junte-se a ${guildSelected.guild.name}`
+        : widget.instant_invite;
+
+    Share.share({
+      message,
+      url: widget.instant_invite,
+    });
+  }
+
+  function handleOpenGuild() {
+    Linking.openURL(widget.instant_invite);
+  }
+
   return (
     <Background>
       <Header
         title="Detalhes"
         action={
-          <BorderlessButton>
-            <Fontisto name="share" size={24} color={theme.colors.primary} />
-          </BorderlessButton>
+          guildSelected.guild.owner && (
+            <BorderlessButton>
+              <Fontisto
+                name="share"
+                size={24}
+                color={theme.colors.primary}
+                onPress={handleShareInvitation}
+              />
+            </BorderlessButton>
+          )
         }
       />
 
@@ -89,7 +122,9 @@ export function AppointmentDetails() {
       )}
 
       <View style={styles.footer}>
-        <ButtonIcon title="Entrar na partida" />
+        {guildSelected.guild.owner && (
+          <ButtonIcon title="Entrar na partida" onPress={handleOpenGuild} />
+        )}
       </View>
     </Background>
   );
