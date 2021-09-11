@@ -8,11 +8,14 @@ type Props = {
   iconId?: string | null;
 };
 
+const { CDN_IMAGE } = process.env;
+
 export function GuildIcon({ guildId, iconId }: Props) {
-  const uri = '';
+  const uri = `${CDN_IMAGE}/icons/${guildId}/${iconId}.png`;
+
   return (
     <View style={styles.container}>
-      {uri ? (
+      {iconId ? (
         <Image source={{ uri }} style={styles.image} resizeMode="cover" />
       ) : (
         <DiscordSvg width={40} height={40} />
