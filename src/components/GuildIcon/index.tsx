@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function GuildIcon({ guildId, iconId }: Props) {
-  const uri = 'https://img.icons8.com/color/452/discord-logo.png';
+  const uri = '';
   return (
     <View style={styles.container}>
       {uri ? (
