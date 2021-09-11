@@ -1,0 +1,6 @@
+const DATABESE_NAME = '@gameplay';
+
+const COLLECTION_USERS = `${DATABESE_NAME}:user`;
+const COLLECTION_APPOINTMENTS = `${DATABESE_NAME}:appointments`;
+
+export { COLLECTION_USERS, COLLECTION_APPOINTMENTS };
